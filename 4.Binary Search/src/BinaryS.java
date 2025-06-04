@@ -1,12 +1,18 @@
+import java.util.Arrays;
+
 public class BinaryS {
     public static void main(String[] args) {
+        //Binary search
         int[] arr = {-9, -1, 23, 34, 45, 56, 67, 78, 89};
         System.out.println(binarySearch(arr, 78));
 
-        //order agnostic binary search
+        //Order agnostic binary search
         int[] arr2 = {99, 89, 34, 30, 29, 10, -67, -78, -89};
         System.out.println(orderAgnosticBS(arr2, 34));
+
+
     }
+
 
     static int orderAgnosticBS(int[] arr, int target){
         int start = 0;
@@ -14,7 +20,7 @@ public class BinaryS {
         boolean isAscending = arr[start] < arr[end];
 
         while(start<=end) {
-            int mid = (start + end) / 2;
+            int mid = start + (end-start) / 2;
             if (arr[mid] == target) {
                 return mid;
             }
@@ -43,7 +49,7 @@ public class BinaryS {
         int end = arr.length - 1;
 
         while(start<=end) {
-            int mid = (start + end) / 2;
+            int mid = start + (end-start) / 2;
             if (arr[mid] < target) {
                 start = mid + 1;
             } else if (arr[mid] > target) {

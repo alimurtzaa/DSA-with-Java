@@ -30,14 +30,29 @@ public class LinearS {
         //5. find max in 2d array
         System.out.println(maxIn2DArray(arr3));
 
-        //6. count elements with even no of digits(https://leetcode.com/problems/find-numbers-with-even-number-of-digits/description/)
+        //6. count elements with even no of digits (https://leetcode.com/problems/find-numbers-with-even-number-of-digits/description/)
         int[] nums = {-9,3047,2,6,786};
         System.out.println(findNumbers(nums));
         System.out.println(noOfDigits2(-2097));
 
-        //7. find maximum wealth of account holder(https://leetcode.com/problems/richest-customer-wealth/)
+        //7. find maximum wealth of account holder (https://leetcode.com/problems/richest-customer-wealth/)
         int[][] accounts = {{2,8,7},{7,1,3},{1,9,5}};
         System.out.println(maximumWealth(accounts));
+
+        //8. Concatenation of Array (https://leetcode.com/problems/concatenation-of-array/description/)
+        int[] nums2 = {1,3,2,1};
+        System.out.println(Arrays.toString(concatArray(nums2)));
+    }
+
+
+    static int[] concatArray(int[] nums2){
+    int n = nums2.length;
+    int[] ans = new int[2*n];
+    for(int i = 0; i < n; i++){
+        ans[i]=nums2[i];
+        ans[n+i]=nums2[i];
+    }
+    return ans;
     }
 
     static int maximumWealth(int[][] accounts) {
@@ -189,3 +204,4 @@ public class LinearS {
         return -1;
     }
 }
+
