@@ -19,6 +19,95 @@ public class BinarySQuestions {
         //4.find first and last position of element in sorted array (https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
         int[] nums = {2, 2};
         System.out.println(Arrays.toString(searchRange(nums, 7)));
+
+        //5.find element in and infinite array (https://www.geeksforgeeks.org/find-position-element-sorted-array-infinite-numbers/)
+        // infinte array = mimic it by not using .length
+        int[] arr2 = {3, 5, 7, 9, 10, 90, 100, 130, 140, 160, 170};
+        System.out.println(elementInInfiniteArr(arr2, 10));
+
+        //6.Peak Index in a Mountain Array (https://leetcode.com/problems/find-peak-element/description/) &
+        //7.Find Peak Element (https://leetcode.com/problems/peak-index-in-a-mountain-array/)
+        int[] arr3 = {1, 4, 7, 5, 3, 2, 0};
+        System.out.println(mountainArrPeak(arr3));
+
+        //8.Find in Mountain Array (https://leetcode.com/problems/find-in-mountain-array/) => first finding max, then order agonstic BS on ascending side if not found than on descending side
+        int[] arr4 = {1, 2, 17, 15, 30, 2, 1, 0};
+        System.out.println(findInMountainArr(arr4, 15));
+    }
+
+    static int findInMountainArr(int[] arr, int target){
+       int peak = mountainArrPeak(arr);
+       int ans = orderAgnosticBS(arr, target, 0, peak);
+       if (ans!=-1){
+           return ans;
+       }
+       return orderAgnosticBS(arr, target, peak + 1, arr.length-1);
+    }
+    static int orderAgnosticBS(int[] arr, int target, int start, int end){
+
+        boolean isAscending = arr[start] < arr[end];
+
+        while(start<=end) {
+            int mid = start + (end-start) / 2;
+            if (arr[mid] == target) {
+                return mid;
+            }
+            if (isAscending) {
+                if (arr[mid] > target) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            }else {
+                if (arr[mid] < target) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            }
+        }
+        return -1;
+    }
+
+    static int mountainArrPeak(int[] arr){
+        int start = 0;
+        int end = arr.length-1;
+         while(start<end){  //    here <= is not used as we are not returning anything from the loop as like in BS so it will infinite. when target is found start==end
+             int mid = start + (end-start)/2;
+              if(arr[mid] < arr[mid+1]){
+                  start = mid+1;
+              } else  {
+                  end = mid;
+              }
+         }
+         return start;
+    }
+
+    static int elementInInfiniteArr(int[] arr, int target){
+        int start = 0;
+        int end = 1;
+
+        while(target > arr[end]){
+            int newStart = end+1;
+            // end = prev end + sizeofbox*2
+            end = end + (end - start + 1)*2;
+            start = newStart;
+        }
+        return binarySearch(arr, target, start, end);
+    }
+    static int binarySearch(int[] arr, int target, int start, int end){
+
+        while(start<=end) {
+            int mid = start + (end-start) / 2;
+            if (arr[mid] < target) {
+                start = mid + 1;
+            } else if (arr[mid] > target) {
+                end = mid - 1;
+            } else {
+                return mid;
+            }
+        }
+        return -1;
     }
 
     static int[] searchRange(int[] nums, int target){
