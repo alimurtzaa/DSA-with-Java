@@ -21,18 +21,59 @@ public class BinarySQuestions {
         System.out.println(Arrays.toString(searchRange(nums, 7)));
 
         //5.find element in and infinite array (https://www.geeksforgeeks.org/find-position-element-sorted-array-infinite-numbers/)
-        // infinte array = mimic it by not using .length
+        // Infinte array = mimic it by not using .length
         int[] arr2 = {3, 5, 7, 9, 10, 90, 100, 130, 140, 160, 170};
         System.out.println(elementInInfiniteArr(arr2, 10));
 
-        //6.Peak Index in a Mountain Array (https://leetcode.com/problems/find-peak-element/description/) &
-        //7.Find Peak Element (https://leetcode.com/problems/peak-index-in-a-mountain-array/)
+        //6.Peak Index in a Mountain Array (https://leetcode.com/problems/peak-index-in-a-mountain-array/) &
+        //7.Find Peak Element (strictly greater than its neighbors) (https://leetcode.com/problems/find-peak-element/description/)
         int[] arr3 = {1, 4, 7, 5, 3, 2, 0};
         System.out.println(mountainArrPeak(arr3));
 
-        //8.Find in Mountain Array (https://leetcode.com/problems/find-in-mountain-array/) => first finding max, then order agonstic BS on ascending side if not found than on descending side
+        //8.Find in Mountain Array and return minimum index of target if target is present multiple times (https://leetcode.com/problems/find-in-mountain-array/) => first finding max, then order agonstic BS on ascending side if not found than on descending side
         int[] arr4 = {1, 2, 17, 15, 30, 2, 1, 0};
         System.out.println(findInMountainArr(arr4, 15));
+
+        //9.Search in Rotated Sorted Array (https://leetcode.com/problems/search-in-rotated-sorted-array/description/)
+        int [] arr5 = {6,7,1,2,3,4,5};
+        System.out.println(searchInRSA(arr5, 6));
+
+
+    }
+
+    static int searchInRSA(int[] arr, int target){
+        int pivot = findPivot(arr);
+        if (pivot == -1){
+            return binarySearch(arr, target, 0, arr.length-1);
+        }
+        if (target == arr[pivot]){
+            return pivot;
+        }
+        if (target >= arr[0]) {
+            return binarySearch(arr, target, 0, pivot);
+        }
+        return binarySearch(arr, target, pivot + 1, arr.length - 1);
+    }
+    static int findPivot(int[] arr){
+        int start = 0;
+        int end = arr.length-1;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            // 4 cases over here
+            if (mid < end && arr[mid] > arr[mid + 1]) {
+                return mid;
+            }
+            if (mid > start && arr[mid] < arr[mid - 1]) {
+                return mid-1;
+            }
+            if (arr[mid] <= arr[start]) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return -1;
     }
 
     static int findInMountainArr(int[] arr, int target){
