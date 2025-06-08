@@ -38,11 +38,20 @@ public class BinarySQuestions {
         int [] arr5 = {6,7,1,2,3,4,5};
         System.out.println(searchInRSA(arr5, 6));
 
+        //10.Rotation Count in a Rotated Sorted array (https://www.geeksforgeeks.org/find-rotation-count-rotated-sorted-array/)
+        int[] arr6 = {7, 9, 11, 12, 5};
+        System.out.println(countRotation(arr6));
 
+    }
+    static int countRotation(int[] arr){
+        int pivot = findPivot(arr);
+        return pivot+1;
     }
 
     static int searchInRSA(int[] arr, int target){
         int pivot = findPivot(arr);
+
+        //array not rotated
         if (pivot == -1){
             return binarySearch(arr, target, 0, arr.length-1);
         }
@@ -54,7 +63,7 @@ public class BinarySQuestions {
         }
         return binarySearch(arr, target, pivot + 1, arr.length - 1);
     }
-    static int findPivot(int[] arr){
+    static int findPivot(int[] arr){  // pivot or max element
         int start = 0;
         int end = arr.length-1;
 
