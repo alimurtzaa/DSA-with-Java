@@ -22,7 +22,7 @@ public class matrixArraySearch {
 
     static int[] sortedMatrix(int[][] matrix,  int target){
         int rows = matrix.length;
-        int cols = matrix[0].length; // change it for not square matrix
+        int cols = matrix[0].length; // change it for not square matrix (take length of row which has largest elements.)
 
         //if 1D array
         if(rows == 1){

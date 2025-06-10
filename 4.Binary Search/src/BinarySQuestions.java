@@ -42,7 +42,37 @@ public class BinarySQuestions {
         int[] arr6 = {7, 9, 11, 12, 5};
         System.out.println(countRotation(arr6));
 
+        //11.Arranging Coins (https://leetcode.com/problems/arranging-coins/description/)
+        int n = 14;
+        System.out.println(arrangeCoin(n));
+
     }
+
+    static int arrangeCoin(int n){
+        long start = 0;
+        long end = n;
+
+        while (start<=end){
+            long mid = start + (end-start)/2;
+            long tillMidSum = mid*(mid+1)/2;
+
+            if(n==tillMidSum){
+                return (int)mid;
+            }
+            if (tillMidSum>n){
+                end = mid-1;
+            }else{
+                start = mid+1;
+            }
+        }
+        return (int)end;
+
+
+        //or by solving this formula K(k+1)/2 <= n
+//        return (int)(Math.sqrt(2)*Math.sqrt(n+0.125)-0.5);
+
+    }
+
     static int countRotation(int[] arr){
         int pivot = findPivot(arr);
         return pivot+1;
