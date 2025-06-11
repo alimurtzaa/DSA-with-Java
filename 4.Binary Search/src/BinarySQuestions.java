@@ -46,6 +46,23 @@ public class BinarySQuestions {
         int n = 14;
         System.out.println(arrangeCoin(n));
 
+        //12.Kth Missing Positive Number (https://leetcode.com/problems/kth-missing-positive-number/description/)
+        int[] arr7 = {1, 2, 3, 4};
+        System.out.println(kthMissingPositive(arr7, 1));
+    }
+
+    static int kthMissingPositive(int[] arr, int k){
+        int start = 0;
+        int end = arr.length-1;
+        while(start<=end){
+            int mid = start + (end-start)/2;
+            if(arr[mid]-mid-1 < k){
+                start = mid+1;
+            }else{
+                end = mid-1;
+            }
+        }
+        return start +k;
     }
 
     static int arrangeCoin(int n){

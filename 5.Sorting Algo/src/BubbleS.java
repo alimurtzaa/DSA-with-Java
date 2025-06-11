@@ -7,44 +7,6 @@ public class BubbleS {
         bubbleSort(arr);
         System.out.println(Arrays.toString(arr));
 
-        System.out.println(Arrays.toString(arr));
-
-        System.out.println(Arrays.toString(arr));
-    }
-
-    static void insertionSort(int[] arr){
-        for (int i = 0; i <= arr.length-2; i++) {
-            for (int j = i+1; j > 0; j--) {
-                if (arr[j] < arr[j-1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j - 1];
-                    arr[j - 1] = temp;
-                }else{
-                    break;
-                }
-            }
-        }
-    }
-
-    static void selectionSort(int[] arr){
-        for (int i = 0; i < arr.length; i++) {
-            int last = arr.length-i-1;
-            int maxIndex = getMaxIndex(arr, 0, last);
-            //swaping max element with last index
-            int temp = arr[maxIndex];
-            arr[maxIndex] = arr[last];
-            arr[last] = temp;
-        }
-    }
-
-    static int getMaxIndex(int[] arr, int start, int end){
-        int maxIndex = start;
-        for (int i = start; i <= end; i++) {
-            if (arr[i] > maxIndex){
-                maxIndex = i;
-            }
-        }
-        return maxIndex;
     }
 
     static void bubbleSort(int[] arr){

@@ -88,7 +88,7 @@ public class matrixArraySearch {
 
     static int[] searchInRowSortColSort2DArr(int[][] matrix, int target){
         int row = 0;
-        int col = matrix.length-1;
+        int col = matrix.length-1;  // valid for only n*n matrix change this for n*m matrix
 
         while(row < matrix.length && col >= 0){
             if(matrix[row][col] == target){
