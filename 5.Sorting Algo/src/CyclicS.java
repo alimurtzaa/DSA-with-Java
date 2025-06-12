@@ -7,9 +7,6 @@ public class CyclicS {
         System.out.println(Arrays.toString(arr));
     }
 
-
-
-
     static void cyclicSort(int[] arr) {
         int i = 0;
         while (i < arr.length) {

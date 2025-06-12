@@ -18,6 +18,33 @@ public class matrixArraySearch {
                 {8, 9, 10}
         };
         System.out.println(Arrays.toString(sortedMatrix(matrix2, 8)));
+
+        //3.Count Negative Numbers in a Sorted Matrix (https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/description/)
+        int[][] matrix3 = {
+                {4, 3, 2, -1},
+                {3, 2, 1, -1},
+                {1, 1, -1, -2},
+                {-1, -1, -2, -3}
+        };
+        System.out.println(countNegatives(matrix3));
+    }
+
+    static int countNegatives(int[][] grid) {
+        int rows = grid.length;
+        int cols = grid[0].length;
+        int rowStart = 0;
+        int colStart = grid[0].length-1;
+        int count = 0;
+
+        while(rowStart<rows && colStart>=0){
+            if (grid[rowStart][colStart] >= 0){
+                rowStart++;
+            }else{
+                count += rows-rowStart;
+                colStart--;
+            }
+        }
+        return count;
     }
 
     static int[] sortedMatrix(int[][] matrix,  int target){
