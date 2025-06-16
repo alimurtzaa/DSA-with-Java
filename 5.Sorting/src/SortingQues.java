@@ -28,6 +28,53 @@ public class SortingQues {
         //6. First Missing Positive (https://leetcode.com/problems/first-missing-positive/description/)
         int[] nums7 = {-1, 0, 1, 2};
         System.out.println(firstMissingPositive(nums7));
+
+        //7. Merge Sorted Array (https://leetcode.com/problems/merge-sorted-array/description/)
+        int[] nums8 = {1,2,3,0,0,0};
+        int m = 3;
+        int[] nums9 = {2,5,6};
+        int n = 3;
+        merge(nums8, m, nums9, n);
+        System.out.println(Arrays.toString(nums8));
+
+        //8. Majority Element (https://leetcode.com/problems/majority-element/description/)
+        int[] nums10 = {2,2,1,1,1,2,2};
+        System.out.println(majorityElement(nums10));
+    }
+
+    static int majorityElement(int[] nums) {
+//        Arrays.sort(nums);
+//        return nums[nums.length / 2];
+
+        //OR
+        //Using Boyer-Moore Voting Algo.
+        int element = 0;
+        int count = 0;
+
+        for(int num: nums){
+            if (count == 0){
+                element = num;
+            }
+            count+=(element == num) ? 1 : -1;
+        }
+        return element;
+    }
+
+    static void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = m-1;
+        int j = n-1;
+        int k = m+n-1;
+
+        while(j>=0){
+            if(i>=0 && nums1[i] > nums2[j]){
+                nums1[k] = nums1[i];
+                i--;
+            }else{
+                nums1[k] = nums2[j];
+                j--;
+            }
+            k--;
+        }
     }
 
     static int firstMissingPositive(int[] nums) {
