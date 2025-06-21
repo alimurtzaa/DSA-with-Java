@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
 
 public class SortingQues {
     public static void main(String[] args) {
@@ -40,6 +39,103 @@ public class SortingQues {
         //8. Majority Element (https://leetcode.com/problems/majority-element/description/)
         int[] nums10 = {2,2,1,1,1,2,2};
         System.out.println(majorityElement(nums10));
+
+        //9. Assign Cookies (https://leetcode.com/problems/assign-cookies/description/)
+        int[] g = {1,2,3};
+        int[] s = {1,1};
+        System.out.println(findContentChildren(g, s));
+
+        //10.Intersection of Two Arrays (https://leetcode.com/problems/intersection-of-two-arrays/description/)
+        int[] nums11 = {4,9,5};
+        int[] nums12 = {9,4,9,8,4};
+        System.out.println(Arrays.toString(intersection(nums11, nums12)));
+
+        //11. Third Maximum Number (https://leetcode.com/problems/third-maximum-number/description/)
+        int[] nums13 = {3, 2, 1};
+        System.out.println(thirdMax(nums13));
+
+        //12. Largest Perimeter Triangle (https://leetcode.com/problems/largest-perimeter-triangle/description/)
+        int[] nums14 = {1,2,1,10};
+        System.out.println(largestPerimeter(nums14));
+    }
+
+    static int largestPerimeter(int[] nums){
+        Arrays.sort(nums);
+
+        for (int i = nums.length-1; i >= 2; i--) {
+            if (nums[i] < nums[i-1] + nums[i-2]){
+                return nums[i] + nums[i-1] + nums[i-2];
+            }
+        }
+        return 0;
+    }
+
+    static int thirdMax(int[] nums){
+        Integer first = null, second = null, third = null;
+        
+        for(Integer num: nums){
+            if (num.equals(first) || num.equals(second) || num.equals(third)) continue; //case for duplicates
+            
+            if (first == null || num > first){
+                third = second;
+                second = first;
+                first = num;
+            } else if (second == null || num > second) {
+                third = second;
+                second = num;
+            } else if (third == null || num > third) {
+                third = num;
+            }
+        }
+        return third == null ? first : third;
+    }
+
+    static int[] intersection(int[] nums1, int[] nums2){
+        Set<Integer> set = new HashSet<>();
+        Arrays.sort(nums1);
+        for(Integer num: nums2){
+            if(binarySearch(nums1, num)){
+                set.add(num);
+            }
+        }
+        int[] result = new int[set.size()];
+        int i = 0;
+        for(Integer num: set){
+            result[i++] = num;
+        }
+    return result;
+    }
+    static boolean binarySearch(int[] arr, int target){
+        int start = 0;
+        int end = arr.length-1;
+        while(start<=end){
+            int mid = start + (end-start)/2;
+            if (arr[mid] ==  target){
+                return true;
+            }
+            if(arr[mid] > target){
+                end = mid-1;
+            }else{
+                start = mid+1;
+            }
+        }
+        return false;
+    }
+
+    static int findContentChildren(int[] g, int[] s){
+        Arrays.sort(g);
+        Arrays.sort(s);
+
+        int child = 0;
+        int cookie = 0;
+
+        while(child < g.length && cookie < s.length){
+            if (s[cookie] >= g[child]){
+                child++;
+            }
+            cookie++;
+        }
+        return child;
     }
 
     static int majorityElement(int[] nums) {
@@ -48,16 +144,16 @@ public class SortingQues {
 
         //OR
         //Using Boyer-Moore Voting Algo.
-        int element = 0;
+        int candidate = 0;
         int count = 0;
 
         for(int num: nums){
             if (count == 0){
-                element = num;
+                candidate = num;
             }
-            count+=(element == num) ? 1 : -1;
+            count+=(candidate == num) ? 1 : -1;
         }
-        return element;
+        return candidate;
     }
 
     static void merge(int[] nums1, int m, int[] nums2, int n) {
