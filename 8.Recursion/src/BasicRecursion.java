@@ -1,4 +1,4 @@
-public class basicRecursion {
+public class BasicRecursion {
     public static void main(String[] args) {
         int[] arr = {3, 4, 5, 1, 78, 32, 98};
         System.out.println(binarySearch(arr, 32, 0, arr.length-1));

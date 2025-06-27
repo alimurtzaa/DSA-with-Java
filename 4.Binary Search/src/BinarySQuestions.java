@@ -49,6 +49,39 @@ public class BinarySQuestions {
         //12.Kth Missing Positive Number (https://leetcode.com/problems/kth-missing-positive-number/description/)
         int[] arr7 = {1, 2, 3, 4};
         System.out.println(kthMissingPositive(arr7, 1));
+
+        //13. Koko Eating Bananas (https://leetcode.com/problems/koko-eating-bananas/description/)
+        int[] piles = {30,11,23,4,20};
+        int h = 5;
+        System.out.println(minEatingSpeed(piles, h));
+
+    }
+
+    static int minEatingSpeed(int[] piles, int h){
+        int min = 1;
+        int max = piles[0];
+        for (int bananas: piles){
+            if (bananas > max){
+                max = bananas;
+            }
+        }
+
+        int ans = max;
+        while (min <= max){
+            int mid = min + (max - min)/2;
+            long hoursTaken = 0;
+
+            for (int i = 0; i < piles.length; i++){
+                hoursTaken += (piles[i] + mid -1 ) / mid;
+            }
+            if(hoursTaken <= h){
+                ans = mid;
+                max = mid-1;   //try eating slow as minimum
+            }else{
+                min = mid+1;   // eat fast
+            }
+        }
+        return ans;
     }
 
     static int kthMissingPositive(int[] arr, int k){

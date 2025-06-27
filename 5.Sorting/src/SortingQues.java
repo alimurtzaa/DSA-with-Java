@@ -45,7 +45,7 @@ public class SortingQues {
         int[] s = {1,1};
         System.out.println(findContentChildren(g, s));
 
-        //10.Intersection of Two Arrays (https://leetcode.com/problems/intersection-of-two-arrays/description/)
+        //10. Intersection of Two Arrays (https://leetcode.com/problems/intersection-of-two-arrays/description/)
         int[] nums11 = {4,9,5};
         int[] nums12 = {9,4,9,8,4};
         System.out.println(Arrays.toString(intersection(nums11, nums12)));
@@ -57,6 +57,66 @@ public class SortingQues {
         //12. Largest Perimeter Triangle (https://leetcode.com/problems/largest-perimeter-triangle/description/)
         int[] nums14 = {1,2,1,10};
         System.out.println(largestPerimeter(nums14));
+
+        //13. Sort Array By Parity (https://leetcode.com/problems/sort-array-by-parity/description/)
+        int[] nums15 = {3,1,2,4};
+        System.out.println(Arrays.toString(sortArrayByParity(nums15)));
+
+        //14. Height Checker (https://leetcode.com/problems/height-checker/description/)
+        int[] heights = {1,1,4,2,1,3};
+        System.out.println(heightChecker(heights));
+
+        //15. Squares of a Sorted Array (https://leetcode.com/problems/squares-of-a-sorted-array/description/)
+        int[] nums16 = {-4,-1,0,3,10};
+        System.out.println(Arrays.toString(sortedSquares(nums16)));
+    }
+
+    static int[] sortedSquares(int[] nums){
+        int i = 0;
+        int j = nums.length-1;
+        int k = nums.length-1;
+        int[] result = new int[nums.length];
+        while (i<=j){
+            if (nums[i]*nums[i] > nums[j]*nums[j]){
+                result[k--] = nums[i]*nums[i];
+                i++;
+            }else{
+                result[k--] = nums[j]*nums[j];
+                j--;
+            }
+        }
+        return result;
+    }
+
+    static int heightChecker(int[] heights){
+        int[] expected = Arrays.copyOf(heights, heights.length);
+        int count = 0;
+        Arrays.sort(expected);
+        for (int i = 0; i < heights.length; i++) {
+            if (heights[i] != expected[i]){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    static int[] sortArrayByParity(int[] nums){
+        int i = 0;
+        int j = nums.length-1;
+
+        while(i < j){
+            if ((nums[i] & 1) == 1 && (nums[j] & 1) == 0){
+                //swap
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                i++;
+                j--;
+            }
+            if ((nums[i] & 1) == 0) i++;
+            if ((nums[j] & 1) == 1) j--;
+        }
+        return nums;
     }
 
     static int largestPerimeter(int[] nums){
