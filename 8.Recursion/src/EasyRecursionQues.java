@@ -1,4 +1,4 @@
-public class RecursionQuestionsEasy {
+public class EasyRecursionQues {
     public static void main(String[] args) {
 
         //1. Print numbers from n to 1
@@ -25,8 +25,10 @@ public class RecursionQuestionsEasy {
         //8. Counting zeros in a number
         System.out.println(countZeros(3203));
 
-        //9. Steps
+        //9. Calculate steps (https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/description/)
         System.out.println(numberOfSteps(8));
+
+
 
     }
 
