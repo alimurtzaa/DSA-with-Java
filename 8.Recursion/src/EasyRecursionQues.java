@@ -28,8 +28,23 @@ public class EasyRecursionQues {
         //9. Calculate steps (https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/description/)
         System.out.println(numberOfSteps(8));
 
+        //10. Reverse a number *not recursion (https://leetcode.com/problems/reverse-integer/)
+        System.out.println(reverse2(-0));
 
+    }
 
+    static int reverse2(int n) {
+        int rev = 0;
+        while(n != 0){
+            int ld = n % 10;
+            n /= 10;
+
+            if (rev > Integer.MAX_VALUE / 10 || rev == Integer.MAX_VALUE / 10 && ld > 7) return 0;
+            if (rev < Integer.MIN_VALUE / 10 || rev == Integer.MIN_VALUE / 10 && ld < 8) return 0;
+
+            rev = rev*10 +ld;
+        }
+        return rev;
     }
 
     static int numberOfSteps(int num){

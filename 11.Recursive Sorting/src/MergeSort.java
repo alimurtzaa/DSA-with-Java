@@ -1,8 +1,6 @@
 import java.util.Arrays;
-
-class MergeSort {
+public class MergeSort {
     public static void main(String[] args) {
-
         // Merge sort
         int[] arr = {2, 3, 8,6, 5,9, 5, -8, 0, 1};
         System.out.println(Arrays.toString(mergeSort(arr)));
@@ -51,6 +49,7 @@ class MergeSort {
             k++;
         }
 
+        // Copying values from temp to arr
         for (int l = 0; l < temp.length; l++) {
             arr[s+l] = temp[l];
         }
@@ -100,5 +99,3 @@ class MergeSort {
         return result;
     }
 }
-
-
