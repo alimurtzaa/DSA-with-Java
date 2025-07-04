@@ -69,6 +69,33 @@ public class SortingQues {
         //15. Squares of a Sorted Array (https://leetcode.com/problems/squares-of-a-sorted-array/description/)
         int[] nums16 = {-4,-1,0,3,10};
         System.out.println(Arrays.toString(sortedSquares(nums16)));
+
+        //16. Sort colors (https://leetcode.com/problems/sort-colors/description/)
+        int[] nums17 = {2,0,2,1,1,0};
+        sortColors(nums17);
+        System.out.println(Arrays.toString(nums17));
+    }
+
+    // *Dutch National Flag Algorithm*
+    static void sortColors(int[] nums){
+        int low = 0, mid = 0, high = nums.length-1;
+
+        while (mid <= high){
+            if (nums[mid] == 0){
+                int temp = nums[mid];
+                nums[mid] = nums[low];
+                nums[low] = temp;
+                low++;
+                mid++;
+            } else if (nums[mid] == 1) {
+                mid++;
+            } else{
+                int temp = nums[mid];
+                nums[mid] = nums[high];
+                nums[high] = temp;
+                high--;
+            }
+        }
     }
 
     static int[] sortedSquares(int[] nums){

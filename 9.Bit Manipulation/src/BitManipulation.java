@@ -22,11 +22,11 @@ public class BitManipulation {
         int base = 10;
         System.out.println(totalDigits(n2, base));
 
-        //6. Check if number is power of 2
+        //6. Check if number is power of 2 (https://leetcode.com/problems/power-of-two/)
         int n3 = 256;
         System.out.println(isPowerofTwo(n3));
 
-        //7. find a power b
+        //7. find a power b OR pow(x, n) (https://leetcode.com/problems/powx-n/)
         int power = 6;
         int base2 = 3;
         System.out.println(calculatePower(power, base2));
@@ -40,7 +40,7 @@ public class BitManipulation {
         int b = 9;
         System.out.println(xorInRange(a2, b));
 
-        //10. flip and invert array ()
+        //10. flip and invert array (https://leetcode.com/problems/flipping-an-image/description/)
         int[][] image = {{1,1,0},{1,0,1},{0,0,0}};
         System.out.println(Arrays.deepToString(flipAndInvertImage(image)));
     }
