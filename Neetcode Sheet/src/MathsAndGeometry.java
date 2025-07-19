@@ -15,8 +15,27 @@ public class MathsAndGeometry {
         // Using Recursion
         System.out.println(myPowRecursion(x, n));
 
+        //3. Transpose of Matrix
+        int[][] matrix = {{1,2,3},{4,5,6},{7,8,9}};
+        int[][] result = transpose(matrix);
+        for (int[] arr: result){
+            System.out.println(Arrays.toString(arr));
+        }
 
 
+    }
+
+    static int[][] transpose(int[][] matrix) {
+        int r = matrix.length;
+        int c = matrix[0].length;
+        int[][] ans = new int[c][r];
+
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                ans[j][i] = matrix[i][j];
+            }
+        }
+        return ans;
     }
 
     static double myPowRecursion(double x, int n){

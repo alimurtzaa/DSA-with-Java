@@ -19,8 +19,59 @@ public class Backtracking {
         int[] nums = {1,2,3};
         System.out.println(subsets(nums));
 
+        //4. Permutations (https://leetcode.com/problems/permutations/)
+        int[] nums2 = {1, 2, 3};
+        System.out.println(permutations(nums2));
+
+        //5. Combinations (https://leetcode.com/problems/combinations/)
+        int n = 4;
+        int k = 2;
+        System.out.println(combination(n, k));
+
     }
 
+    static List<List<Integer>> combination(int n, int k){
+        List<List<Integer>> ans = new ArrayList<>();
+        comb3helper(n, k, 1, ans, new ArrayList<>());
+        return ans;
+    }
+    static void comb3helper(int n, int k, int start, List<List<Integer>> ans, List<Integer> comb){
+        if (k == 0) {
+            ans.add(new ArrayList<>(comb));
+            return;
+        }
+
+        for (int i = start; i <= n; i++) {
+            comb.add(i);
+            comb3helper(n, k-1, i+1, ans, comb);
+            comb.removeLast();
+        }
+    }
+
+    static List<List<Integer>> permutations(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        permutationHelper(nums, ans, 0);
+        return ans;
+    }
+    static void permutationHelper(int[] nums, List<List<Integer>> ans, int index) {
+        if (index == nums.length){
+            List<Integer> temp = new ArrayList<>();
+            for (int num: nums) temp.add(num);
+            ans.add(temp);
+            return;
+        }
+
+        for (int i = index; i < nums.length; i++) {
+            swap(nums, i, index);
+            permutationHelper(nums, ans, index+1);
+            swap(nums, i, index);
+        }
+    }
+    static void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
 
     static List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
