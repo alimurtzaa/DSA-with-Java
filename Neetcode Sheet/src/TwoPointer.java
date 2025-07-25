@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class TwoPointer {
     public static void main(String[] args) {
@@ -11,12 +13,110 @@ public class TwoPointer {
 
         //2. Valid Palindrome (https://leetcode.com/problems/valid-palindrome/)
         String s = "A man, a plan, a canal: Panama";
-        System.out.println(isPalindrome(s));
+        System.out.println(validPalindrome(s));
 
+        //3. Valid Palindrome II (https://leetcode.com/problems/valid-palindrome-ii/)
+        String s2 = "abca";
+        System.out.println(validPalindrome2(s2));
+
+        //4. Merge Strings Alternately (https://leetcode.com/problems/merge-strings-alternately)
+        String word1 = "abc", word2 = "pqr";
+        System.out.println(mergeAlternately(word1, word2));
+
+        //5. Remove Duplicates from Sorted Array (https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+        int[] nums2 = {0,0,1,1,1,2,2,3,3,4};
+        System.out.println(removeDuplicates(nums2));
+
+        //6. 3 Sum (https://leetcode.com/problems/3sum/)
+        int[] nums3 = {-1,0,1,2,-1,-4};
+        System.out.println(threeSum(nums3));
 
     }
 
-    static boolean isPalindrome(String s) {
+    static List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> list = new ArrayList<>();
+
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            int j = i + 1;
+            int k = nums.length - 1;
+
+            while (j < k){
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum == 0){
+                    list.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    j++;
+                    k--;
+                    while (j < k && nums[j] == nums[j-1]){
+                        j++;
+                    }
+                    while (j < k && nums[k] == nums[k + 1]){
+                        k--;
+                    }
+                } else if (sum > 0) {
+                    k--;
+                }else {
+                    j++;
+                }
+            }
+        }
+        return list;
+    }
+
+    static int removeDuplicates(int[] nums) {
+        if (nums.length == 0) return 0;
+        int j = 1;
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[i-1]){
+                nums[j] = nums[i];
+                j++;
+            }
+        }
+        return j;
+    }
+
+    static String mergeAlternately(String word1, String word2) {
+        StringBuilder ans = new StringBuilder();
+        int i = 0;
+        int j = 0;
+
+        while (i < word1.length() && j < word2.length()){
+            ans.append(word1.charAt(i++));
+            ans.append(word2.charAt(j++));
+        }
+        while (i < word1.length()) ans.append(word1.charAt(i++));
+        while (j < word2.length()) ans.append(word2.charAt(j++));
+
+        return ans.toString();
+    }
+
+    static boolean validPalindrome2(String s) {
+        int i = 0;
+        int j = s.length()-1;
+
+        while (i < j){
+            if (s.charAt(i) != s.charAt(j)){
+                return isPalindrome(s, i+1, j) || isPalindrome(s, i, j-1);
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+    static boolean isPalindrome(String s, int i, int j) {
+        while (i < j){
+            if (s.charAt(i) != s.charAt(j)){
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    static boolean validPalindrome(String s) {
         if (s.isEmpty()){
             return true;
         }
