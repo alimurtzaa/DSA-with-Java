@@ -31,6 +31,51 @@ public class TwoPointer {
         int[] nums3 = {-1,0,1,2,-1,-4};
         System.out.println(threeSum(nums3));
 
+        //7. Container with most water (https://leetcode.com/problems/container-with-most-water/)
+        int[] height = {1,8,6,2,5,4,8,3,7};
+        System.out.println(maxArea(height));
+
+        //8. Boats to Save People (https://leetcode.com/problems/boats-to-save-people/)
+        int[] people = {3,2,2,1};
+        int limit = 3;
+        System.out.println(numRescueBoats(people, limit));
+
+    }
+
+    static int numRescueBoats(int[] people, int limit) {
+        Arrays.sort(people);
+        int count = 0;
+        int i = 0;
+        int j = people.length - 1;
+
+        while (i <= j){
+            if (people[i] + people[j] <= limit){
+                i++;
+                j--;
+            } else {
+                j--;
+            }
+            count++;
+        }
+        return count;
+    }
+
+    static int maxArea(int[] height) {
+        int maxWater = 0;
+        int i = 0;
+        int j = height.length - 1;
+        while (i < j){
+            int currentWater = Math.min(height[i], height[j])*(j-i);
+            if (currentWater > maxWater){
+                maxWater = currentWater;
+            }
+            if (height[i] < height[j]){
+                i++;
+            } else{
+                j--;
+            }
+        }
+        return maxWater;
     }
 
     static List<List<Integer>> threeSum(int[] nums) {
