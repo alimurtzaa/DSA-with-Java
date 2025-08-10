@@ -1,7 +1,3 @@
-import org.w3c.dom.Node;
-
-import java.util.List;
-
 public class LLQuestions {
     private int size = 0;
 
@@ -168,7 +164,7 @@ public class LLQuestions {
         return head;
     }
 
-    //8. reverse linked list II ()
+    //8. reverse linked list II (https://leetcode.com/problems/reverse-linked-list-ii/)
     public ListNode reverseBetween(ListNode head, int left, int right) {
         if (left == right) return head;
 
@@ -202,7 +198,164 @@ public class LLQuestions {
         return head;
     }
 
-    class ListNode {
+    //9. check palindrome (https://leetcode.com/problems/palindrome-linked-list/)
+    public boolean isPalindrome(ListNode head) {
+        ListNode mid = findMid(head);
+        ListNode headSecond = reverse2(mid);
+        ListNode rereversehead = headSecond;
+
+        while (head != null && headSecond != null){
+            if (head.val != headSecond.val){
+                break;
+            }
+            head = head.next;
+            headSecond = headSecond.next;
+        }
+        reverse(rereversehead);
+        if (head == null || headSecond == null){
+            return true;
+        }
+        return false;
+    }
+    private ListNode reverse2(ListNode head){
+        if (head == null){
+            return head;
+        }
+        ListNode prev = null;
+        ListNode curr = head;
+        ListNode forward = curr.next;
+        while (curr != null){
+            curr.next = prev;
+            prev = curr;
+            curr = forward;
+            if (forward != null){
+                forward = forward.next;
+            }
+        }
+        head = prev;
+        return head;
+    }
+    private ListNode findMid(ListNode head){
+        ListNode s = head;
+        ListNode f = head;
+        while (f != null && f.next != null){
+            s = s.next;
+            f = f.next.next;
+        }
+        return s;
+    }
+
+    //10. reorder list (http://leetcode.com/problems/reorder-list/)
+    public void reorderList(ListNode head) {
+        ListNode temp = head.next;
+        ListNode prev = head;
+        while (temp != null){
+            ListNode newHead = reverse2(temp);
+            prev.next = newHead;
+            prev = newHead;
+            temp = newHead.next;
+        }
+    }
+    //OR
+    public void reorderList2(ListNode head) {
+        if (head == null || head.next == null){
+            return;
+        }
+        ListNode mid = findMid(head);
+        ListNode h2 = reverse2(mid);
+        ListNode h1 = head;
+
+        while (h1 != null && h2 != null){
+            ListNode temp = h1.next;
+            h1.next = h2;
+            h1 = temp;
+
+            temp = h2.next;
+            h2.next = h1;
+            h2 = temp;
+        }
+        if (h1 != null){
+            h1.next = null;
+        }
+
+    }
+
+    //11. reverse node in k groups (https://leetcode.com/problems/reverse-nodes-in-k-group/)
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (head == null || k <= 1) return head;
+
+        ListNode curr = head;
+        ListNode prev = null;
+
+        while (hasKNodes(curr, k)){
+            ListNode last = prev;
+            ListNode newEnd = curr;
+
+            // reversing
+            ListNode forward = curr.next;
+            for (int i = 0; curr != null && i < k ; i++) {
+                curr.next = prev;
+                prev = curr;
+                curr = forward;
+                if (forward != null){
+                    forward = forward.next;
+                }
+            }
+            if (last != null){
+                last.next = prev;
+            }else{
+                head = prev;
+            }
+            newEnd.next = curr;
+
+            if (curr == null){
+                break;
+            }
+            prev = newEnd;
+        }
+        return head;
+    }
+    private boolean hasKNodes(ListNode node, int k) {
+        int count = 0;
+        while (node != null && count < k){
+            count++;
+            node = node.next;
+        }
+        return count == k;
+    }
+
+    //12. rotate list (https://leetcode.com/problems/rotate-list/)
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null || head.next == null || k == 0){
+            return head;
+        }
+        ListNode temp = head;
+        int size = 0;
+        while (temp != null){
+            size++;
+            temp = temp.next;
+        }
+
+        k = k % size;
+
+        ListNode prev = null;
+        ListNode curr = head;
+        for (int i = 0; i < size-k; i++) {
+            prev = curr;
+            curr = curr.next;
+        }
+        prev.next = null;
+        prev = curr;
+        while (curr.next != null){
+            curr = curr.next;
+        }
+        curr.next = head;
+        head = prev;
+        return head;
+    }
+
+
+        class ListNode {
       int val;
       ListNode next;
 
